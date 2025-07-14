@@ -20,7 +20,7 @@ function loadContacts() {
   }
 }
 
-const contacts = loadContacts();
+const contacts = loadContacts(); // its duplicates in couple of functions, so I put it outside, will it work when exporting functions?
 
 // Save contacts to file
 function saveContacts(contacts) {
@@ -44,6 +44,7 @@ function addContact(name, email, phone) {
   //   const contacts = loadContacts();
 
   // Validate email contains @ symbol
+//you need to take it to validation
   if (!email.includes("@")) {
     console.log(`Email must contain @ symbol`);
     return;
@@ -56,7 +57,7 @@ function addContact(name, email, phone) {
   }
   // Check for duplicate name,
   // I think it's better to check by email
-  // we need to decide about it
+  // we need to decide about it!!!
 
   if (contacts.some((contact) => contact.name === name)) {
     console.log(`Contact with name "${name}" already exists.`);
