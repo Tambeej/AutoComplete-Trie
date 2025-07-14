@@ -2,93 +2,96 @@
 // V listContacts
 // V searchContacts
 // V deleteContact
+import {
+  isValidEmail,
+  isValidPhone,
+  isEmailInList,
+} from "../utils/validation.js";
+import { loadContacts, saveContacts } from "../utils/fileUtils.js";
 
-const fs = require("fs");
-const path = require("path");
+const fs = import("fs");
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const contactsFile = path.join(__dirname, "contacts.json");
+const __filename = fileURLToPath(import.meta.url);
+console.log("file name :" + __filename);
+const __dirname = path.dirname(__filename);
 
-// Load contacts from file
-function loadContacts() {
-  ensureContactsFile();
-  try {
-    const data = fs.readFileSync(contactsFile, "utf8");
-    return JSON.parse(data);
-  } catch (err) {
-    console.error("Error reading contacts file:", err.message);
-    return [];
-  }
-}
+const CONTACTS_FILE = path.join(__dirname, "..", "contacts.json");
+console.log(CONTACTS_FILE);
 
-const contacts = loadContacts();
+const contacts = loadContacts(CONTACTS_FILE); //->I think this isnot right
+// // Load contacts from file
+// function loadContacts() {
+//   ensureContactsFile();
+//   try {
+//     const data = fs.readFileSync(contactsFile, "utf8");
+//     return JSON.parse(data);
+//   } catch (err) {
+//     console.error("Error reading contacts file:", err.message);
+//     return [];
+//   }
+// }
 
 // Save contacts to file
-function saveContacts(contacts) {
-  try {
-    fs.writeFileSync(contactsFile, JSON.stringify(contacts, null, 2));
-  } catch (err) {
-    console.error("Error saving contacts:", err.message);
-  }
-}
+// function saveContacts(contacts) {
+//   try {
+//     fs.writeFileSync(contactsFile, JSON.stringify(contacts, null, 2));
+//   } catch (err) {
+//     console.error("Error saving contacts:", err.message);
+//   }
+// }
 
 // Ensure file exists; if not, create it with empty array
-function ensureContactsFile() {
-  if (!fs.existsSync(contactsFile)) {
-    fs.writeFileSync(contactsFile, "[]");
-  }
-}
+// function ensureContactsFile() {
+//   if (!fs.existsSync(contactsFile)) {
+//     fs.writeFileSync(contactsFile, "[]");
+//   }
+// }
 
 // Add a new contact
 
-function addContact(name, email, phone) {
-  //   const contacts = loadContacts();
-
-  // Validate email contains @ symbol
-  if (!email.includes("@")) {
-    console.log(`Email must contain @ symbol`);
+export function addContact(name, email, phone) {
+  if (!isValidEmail(email)) {
+    console.log(email);
+    console.log(`✗ Email must contain @ symbol`);
     return;
   }
 
-  // Check for duplicate email
-  if (contacts.some((contact) => contact.email === email)) {
-    console.log(`A contact with email "${email}" already exists.`);
-    return;
-  }
-  // Check for duplicate name,
-  // I think it's better to check by email
-  // we need to decide about it
-
-  if (contacts.some((contact) => contact.name === name)) {
-    console.log(`Contact with name "${name}" already exists.`);
+  if (isEmailInList(contacts, email)) {
+    console.log(`✗ A contact with email "${email}" already exists.`);
     return;
   }
 
   // Validate phone (only numbers and dashes)
-  const phoneRegex = /^[0-9\-]+$/;
-  if (!phoneRegex.test(phone)) {
+  if (!isValidPhone(phone)) {
     console.log(
-      `Invalid phone number: "${phone}". Only digits and "-" allowed.`
+      `✗ Invalid phone number: "${phone}". Only digits and "-" allowed.`
     );
     return;
   }
 
   contacts.push({ name, email, phone });
-  saveContacts(contacts);
-  console.log("Contact added successfully.");
+  console.log(`✓ Contact added: ${name}`);
+  saveContacts(CONTACTS_FILE, contacts);
 }
 
 //  addContact('john', 'john@mail.com', '3210545545');
 
 // List all contacts
-function listContacts() {
+export function listContacts() {
   //const contacts = loadContacts();
 
+  // console.log(`Loading contacts from contacts.json...`)
+
   if (contacts.length === 0) {
-    console.log("No contacts found.");
+    console.log("✗ No contacts found.");
     return;
   }
 
-  console.log("Contacts:");
+  // console.log(`✓ Loaded ${contacts.length} contacts`)
+
+  console.log("=== All Contacts ===");
   contacts.forEach((contact, index) => {
     console.log(
       `${index + 1}. ${contact.name} - ${contact.email} - ${contact.phone}`
@@ -99,7 +102,8 @@ function listContacts() {
 // listContacts();
 
 // Search contacts
-function searchContacts(query) {
+export function searchContacts(query) {
+  console.log(query);
   //const contacts = loadContacts();
   const results = contacts.filter(
     (contact) =>
@@ -107,13 +111,13 @@ function searchContacts(query) {
       contact.email.toLowerCase().includes(query.toLowerCase()) ||
       contact.phone.includes(query)
   );
+  console.log(`=== Search Results for "${query}" ===`);
 
   if (results.length === 0) {
     console.log(`No contacts found matching "${query}".`);
     return;
   }
 
-  console.log(`Found ${results.length} contact(s):`);
   results.forEach((contact) => {
     console.log(`${contact.name} - ${contact.email} - ${contact.phone}`);
   });
@@ -122,24 +126,15 @@ function searchContacts(query) {
 // searchContacts('john');
 
 // Delete contact by name
-function deleteContact(name) {
+export function deleteContact(email) {
   //const contacts = loadContacts();
-  const updated = contacts.filter((contact) => contact.name !== name);
+  const updated = contacts.filter((contact) => contact.email !== email);
 
   if (updated.length === contacts.length) {
-    console.log(`Contact with name "${name}" not found.`);
+    console.log(`✗ Error: No contact found with email: ${email}.`);
     return;
   }
+  console.log(`Contact "${email}" deleted.`);
 
-  saveContacts(updated);
-  console.log(`Contact "${name}" deleted.`);
+  saveContacts(CONTACTS_FILE, updated);
 }
-
-// deleteContact('john');
-
-module.exports = {
-  addContact,
-  listContacts,
-  searchContacts,
-  deleteContact,
-};
