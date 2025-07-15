@@ -23,8 +23,10 @@ export function loadContacts(filePath) {
   }
   try {
     const data = fs.readFileSync(filePath, "utf8");
-    console.log(`✓ Loaded ${data.length} contacts`)
-    return(JSON.parse(data));
+    const contacts = JSON.parse(data);
+
+    console.log(`✓ Loaded ${contacts.length} contacts`)
+    return(contacts);
   } catch {
     return("Its not a JSON");
   }
