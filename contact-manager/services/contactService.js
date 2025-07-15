@@ -20,36 +20,7 @@ const __dirname = path.dirname(__filename);
 const CONTACTS_FILE = path.join(__dirname, "..", "contacts.json");
 console.log(CONTACTS_FILE);
 
-const contacts = loadContacts(CONTACTS_FILE); //->I think this isnot right
-// // Load contacts from file
-// function loadContacts() {
-//   ensureContactsFile();
-//   try {
-//     const data = fs.readFileSync(contactsFile, "utf8");
-//     return JSON.parse(data);
-//   } catch (err) {
-//     console.error("Error reading contacts file:", err.message);
-//     return [];
-//   }
-// }
-
-// Save contacts to file
-// function saveContacts(contacts) {
-//   try {
-//     fs.writeFileSync(contactsFile, JSON.stringify(contacts, null, 2));
-//   } catch (err) {
-//     console.error("Error saving contacts:", err.message);
-//   }
-// }
-
-// Ensure file exists; if not, create it with empty array
-// function ensureContactsFile() {
-//   if (!fs.existsSync(contactsFile)) {
-//     fs.writeFileSync(contactsFile, "[]");
-//   }
-// }
-
-// Add a new contact
+const contacts = loadContacts(CONTACTS_FILE);
 
 export function addContact(name, email, phone) {
   if (!isValidEmail(email)) {
@@ -84,8 +55,6 @@ export function listContacts() {
     console.log("✗ No contacts found.");
     return;
   }
-
-  // console.log(`✓ Loaded ${contacts.length} contacts`)
 
   console.log("=== All Contacts ===");
   contacts.forEach((contact, index) => {
