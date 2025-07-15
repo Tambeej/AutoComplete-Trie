@@ -13,21 +13,25 @@ const fs = import("fs");
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const contactsFile = path.join(__dirname, "contacts.json");
+const __filename = fileURLToPath(import.meta.url);
+console.log("file name :" + __filename);
+const __dirname = path.dirname(__filename);
 
-// Load contacts from file
-function loadContacts() {
-  ensureContactsFile();
-  try {
-    const data = fs.readFileSync(contactsFile, "utf8");
-    return JSON.parse(data);
-  } catch (err) {
-    console.error("Error reading contacts file:", err.message);
-    return [];
-  }
-}
+const CONTACTS_FILE = path.join(__dirname, "..", "contacts.json");
+console.log(CONTACTS_FILE);
 
-const contacts = loadContacts();
+const contacts = loadContacts(CONTACTS_FILE); //->I think this isnot right
+// // Load contacts from file
+// function loadContacts() {
+//   ensureContactsFile();
+//   try {
+//     const data = fs.readFileSync(contactsFile, "utf8");
+//     return JSON.parse(data);
+//   } catch (err) {
+//     console.error("Error reading contacts file:", err.message);
+//     return [];
+//   }
+// }
 
 // Save contacts to file
 // function saveContacts(contacts) {
@@ -47,26 +51,15 @@ const contacts = loadContacts();
 
 // Add a new contact
 
-function addContact(name, email, phone) {
-  //   const contacts = loadContacts();
-
-  // Validate email contains @ symbol
-  if (!email.includes("@")) {
-    console.log(`Email must contain @ symbol`);
+export function addContact(name, email, phone) {
+  if (!isValidEmail(email)) {
+    console.log(email);
+    console.log(`✗ Email must contain @ symbol`);
     return;
   }
 
-  // Check for duplicate email
-  if (contacts.some((contact) => contact.email === email)) {
-    console.log(`A contact with email "${email}" already exists.`);
-    return;
-  }
-  // Check for duplicate name,
-  // I think it's better to check by email
-  // we need to decide about it
-
-  if (contacts.some((contact) => contact.name === name)) {
-    console.log(`Contact with name "${name}" already exists.`);
+  if (isEmailInList(contacts, email)) {
+    console.log(`✗ A contact with email "${email}" already exists.`);
     return;
   }
 
