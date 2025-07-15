@@ -76,13 +76,9 @@ export function addContact(name, email, phone) {
   saveContacts(CONTACTS_FILE, contacts);
 }
 
-//  addContact('john', 'john@mail.com', '3210545545');
 
 // List all contacts
 export function listContacts() {
-  //const contacts = loadContacts();
-
-  // console.log(`Loading contacts from contacts.json...`)
 
   if (contacts.length === 0) {
     console.log("✗ No contacts found.");
