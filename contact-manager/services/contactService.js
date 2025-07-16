@@ -15,18 +15,18 @@ const fs = require("fs");
 const path = require("node:path");
 const { fileURLToPath } = require("node:url");
 
-// const __filename = fileURLToPath(import.meta.url);
-// console.log("file name :" + __filename);
-// const __dirname = path.dirname(__filename);
-
 const CONTACTS_FILE = path.join(__dirname, "..", "contacts.json");
 console.log(CONTACTS_FILE);
+
+function readContacts() {
+  return JSON.parse(fs.readFileSync(CONTACTS_FILE, "utf8"));
+}
 
 const contacts = loadContacts(CONTACTS_FILE);
 
 function addContact(name, email, phone) {
   if (!isValidEmail(email)) {
-    console.log("isValidEmail"+email);
+    console.log("isValidEmail" + email);
     console.log(`✗ Email must contain @ symbol`);
     return `✗ Email must contain @ symbol`;
   }
@@ -47,6 +47,7 @@ function addContact(name, email, phone) {
   contacts.push({ name, email, phone });
   console.log(`✓ Contact added: ${name}`);
   saveContacts(CONTACTS_FILE, contacts);
+  // console.log("user added");
   return "user added";
 }
 
@@ -54,15 +55,18 @@ function addContact(name, email, phone) {
 function listContacts() {
   if (contacts.length === 0) {
     console.log("✗ No contacts found.");
-    return;
+    return "✗ No contacts found.";
   }
 
   console.log("=== All Contacts ===");
-  contacts.forEach((contact, index) => {
-    console.log(
-      `${index + 1}. ${contact.name} - ${contact.email} - ${contact.phone}`
-    );
+  const formatted = contacts.map((contact, index) => {
+    const line = `${index + 1}. ${contact.name} - ${contact.email} - ${
+      contact.phone
+    }`;
+    console.log(line);
+    return line;
   });
+  return formatted;
 }
 
 // Search contacts
@@ -78,12 +82,21 @@ function searchContacts(query) {
 
   if (results.length === 0) {
     console.log(`No contacts found matching "${query}".`);
-    return;
+    //     return [];
+    //   }
+
+    //   results.forEach((contact) => {
+    //     console.log(`${contact.name} - ${contact.email} - ${contact.phone}`);
+    //     return `${contact.name} - ${contact.email} - ${contact.phone}`;
+    //   });
+    // }
+  } else {
+    results.forEach((contact) => {
+      console.log(`${contact.name} - ${contact.email} - ${contact.phone}`);
+    });
   }
 
-  results.forEach((contact) => {
-    console.log(`${contact.name} - ${contact.email} - ${contact.phone}`);
-  });
+  return results; // ✅ return the results
 }
 
 // Delete contact by name
@@ -99,4 +112,10 @@ function deleteContact(email) {
   saveContacts(CONTACTS_FILE, updated);
 }
 
-module.exports = { addContact, listContacts, searchContacts, deleteContact };
+module.exports = {
+  addContact,
+  listContacts,
+  searchContacts,
+  deleteContact,
+  readContacts,
+};

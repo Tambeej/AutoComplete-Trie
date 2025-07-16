@@ -20,40 +20,43 @@ Available Commands:
 // Handle CLI-like command input
 
 function handleCommand(command) {
- console.log(command[0])
+  console.log(command[0]);
   switch (command[0]) {
     case "add":
       if (command.length < 3) {
         console.log(
           "✗ Error: Missing arguments for add command\nUsage: node contacts.js add <name> <email> <phone>"
         );
-        break;
+        return `✗ Error: Missing arguments for add command\nUsage: node contacts.js add <name> <email> <phone>`;
+        // break;
       }
       const [op, name, email, phone] = command;
       return addContact(name, email, phone);
-      
-      
+
     // break;
 
     case "list":
-      listContacts();
-      break;
+      console.log(listContacts());
+      return listContacts();
+
+    // break;
 
     case "search":
-      if (command.length < 1) {
+      if (command.length < 2) {
         console.log("Usage: search <query>");
-        break;
+        return `Usage: search <query>`;
       }
-      searchContacts(command.slice(1).join(" "));
-      break;
+      return searchContacts(command.slice(1).join(" "));
+    // break;
 
     case "delete":
-      if (command.length < 1) {
+      if (command.length < 2) {
         console.log("Usage: delete <name>");
-        break;
+        return `Usage: delete <name>`;
+        // break;
       }
       deleteContact(command.slice(1).join(" "));
-      break;
+      return "user deleted";
 
     case "help":
       printHelp();
@@ -66,9 +69,7 @@ function handleCommand(command) {
   }
 }
 
-// handleCommand('add josh josh@mail.co 123-456-0789');
-
 module.exports = {
   handleCommand,
-  printHelp
+  printHelp,
 };
