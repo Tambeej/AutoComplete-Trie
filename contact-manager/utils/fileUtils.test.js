@@ -16,8 +16,11 @@ describe("Get load files functions", () => {
     expect(result).toEqual(`✗ Path is a directory, not a file: ${filePath}`);
   });
 
-  iit("should return it's not a json file", () => {
+  it("should return it's not a json file", () => {
     const filePath = "not-a-json.txt";
+    const result = loadContacts(filePath);
+
+
     expect(result).toEqual(`Its not a JSON`);
   });
 

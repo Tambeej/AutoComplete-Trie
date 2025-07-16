@@ -13,20 +13,13 @@ const { loadContacts, saveContacts } = require("../utils/fileUtils.js");
 
 const fs = require("fs");
 const path = require("node:path");
-const { fileURLToPath } = require("node:url");
-
-// const __filename = fileURLToPath(import.meta.url);
-// console.log("file name :" + __filename);
-// const __dirname = path.dirname(__filename);
-
 const CONTACTS_FILE = path.join(__dirname, "..", "contacts.json");
-console.log(CONTACTS_FILE);
 
 const contacts = loadContacts(CONTACTS_FILE);
 
 function addContact(name, email, phone) {
   if (!isValidEmail(email)) {
-    console.log("isValidEmail"+email);
+    console.log("isValidEmail" + email);
     console.log(`✗ Email must contain @ symbol`);
     return `✗ Email must contain @ symbol`;
   }
