@@ -2,16 +2,14 @@
 // V listContacts
 // V searchContacts
 // V deleteContact
-import {
-  isValidEmail,
-  isValidPhone,
-  isEmailInList,
-} from "../utils/validation.js";
-import { loadContacts, saveContacts } from "../utils/fileUtils.js";
 
-const fs = import("fs");
-import path from "node:path";
-import { fileURLToPath } from "node:url";
+const {isValidEmail,isValidPhone,isEmailInList} = require("../utils/validation.js");
+
+const {loadContacts,saveContacts} = require("../utils/fileUtils.js");
+
+const fs = require("fs");
+const path = require("node:path");
+const { fileURLToPath } = require("node:url");
 
 const __filename = fileURLToPath(import.meta.url);
 console.log("file name :" + __filename);
@@ -22,7 +20,7 @@ console.log(CONTACTS_FILE);
 
 const contacts = loadContacts(CONTACTS_FILE);
 
-export function addContact(name, email, phone) {
+function addContact(name, email, phone) {
   if (!isValidEmail(email)) {
     console.log(email);
     console.log(`✗ Email must contain @ symbol`);
@@ -47,10 +45,8 @@ export function addContact(name, email, phone) {
   saveContacts(CONTACTS_FILE, contacts);
 }
 
-
 // List all contacts
-export function listContacts() {
-
+function listContacts() {
   if (contacts.length === 0) {
     console.log("✗ No contacts found.");
     return;
@@ -64,12 +60,9 @@ export function listContacts() {
   });
 }
 
-// listContacts();
-
 // Search contacts
-export function searchContacts(query) {
+function searchContacts(query) {
   console.log(query);
-  //const contacts = loadContacts();
   const results = contacts.filter(
     (contact) =>
       contact.name.toLowerCase().includes(query.toLowerCase()) ||
@@ -88,11 +81,8 @@ export function searchContacts(query) {
   });
 }
 
-// searchContacts('john');
-
 // Delete contact by name
-export function deleteContact(email) {
-  //const contacts = loadContacts();
+function deleteContact(email) {
   const updated = contacts.filter((contact) => contact.email !== email);
 
   if (updated.length === contacts.length) {
@@ -103,3 +93,6 @@ export function deleteContact(email) {
 
   saveContacts(CONTACTS_FILE, updated);
 }
+
+
+module.exports = {addContact, listContacts,searchContacts, deleteContact};

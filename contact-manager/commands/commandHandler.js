@@ -1,12 +1,11 @@
-import {
-  addContact,
-  listContacts,
-  searchContacts,
-  deleteContact,
-} from "../services/contactService.js";
+
+const addContact = require("../services/contactService.js");
+const listContacts = require("../services/contactService.js");
+const searchContacts = require("../services/contactService.js");
+const deleteContact = require("../services/contactService.js");
 
 // Print command help
-export function printHelp() {
+function printHelp() {
   console.log(`
 Available Commands:
   add <name> <email> <phone>      Add a new contact
@@ -19,11 +18,13 @@ Available Commands:
 
 // Handle CLI-like command input
 
-export function handleCommand(command, args) {
+function handleCommand(command, args) {
   switch (command[0]) {
     case "add":
       if (command.length < 3) {
-        console.log("✗ Error: Missing arguments for add command\nUsage: node contacts.js add <name> <email> <phone>");
+        console.log(
+          "✗ Error: Missing arguments for add command\nUsage: node contacts.js add <name> <email> <phone>"
+        );
         break;
       }
       const [op, name, email, phone] = command;
@@ -60,3 +61,6 @@ export function handleCommand(command, args) {
       break;
   }
 }
+
+
+module.exports = {printHelp,handleCommand}
