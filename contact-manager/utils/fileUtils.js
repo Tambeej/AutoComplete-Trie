@@ -2,6 +2,9 @@
 const fs = require("fs");
 
 function loadContacts(filePath) {
+  if (!filePath || typeof filePath !== "string") {
+    throw "Invalid file path provided";
+  }
   console.log(`Loading contacts from ${filePath}...`);
   let data = null;
   try {
@@ -14,7 +17,7 @@ function loadContacts(filePath) {
       console.log("✗ File not found - creating new contact list");
       const emptyJsonContent = "[]";
       fs.writeFileSync(filePath, emptyJsonContent, "utf8");
-      return [];
+      return emptyJsonContent;
     }
   }
   try {
@@ -38,7 +41,6 @@ function saveContacts(contactsFile, contacts) {
     return "✓ Contacts saved to contacts.json";
   } catch (err) {
     console.error("Error saving contacts:", err.message);
-
   }
 }
 
