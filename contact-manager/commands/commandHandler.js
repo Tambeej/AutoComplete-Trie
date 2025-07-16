@@ -1,8 +1,9 @@
-
-const addContact = require("../services/contactService.js");
-const listContacts = require("../services/contactService.js");
-const searchContacts = require("../services/contactService.js");
-const deleteContact = require("../services/contactService.js");
+const {
+  addContact,
+  listContacts,
+  searchContacts,
+  deleteContact,
+} = require("../services/contactService.js");
 
 // Print command help
 function printHelp() {
@@ -18,7 +19,8 @@ Available Commands:
 
 // Handle CLI-like command input
 
-function handleCommand(command, args) {
+function handleCommand(command) {
+ console.log(command[0])
   switch (command[0]) {
     case "add":
       if (command.length < 3) {
@@ -28,8 +30,10 @@ function handleCommand(command, args) {
         break;
       }
       const [op, name, email, phone] = command;
-      addContact(name, email, phone);
-      break;
+      return addContact(name, email, phone);
+      
+      
+    // break;
 
     case "list":
       listContacts();
@@ -62,5 +66,9 @@ function handleCommand(command, args) {
   }
 }
 
+// handleCommand('add josh josh@mail.co 123-456-0789');
 
-module.exports = {printHelp,handleCommand}
+module.exports = {
+  handleCommand,
+  printHelp
+};

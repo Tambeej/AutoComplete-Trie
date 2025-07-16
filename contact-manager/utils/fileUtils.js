@@ -35,8 +35,10 @@ function saveContacts(contactsFile, contacts) {
   try {
     fs.writeFileSync(contactsFile, JSON.stringify(contacts, null, 2));
     console.log("✓ Contacts saved to contacts.json");
+    return "✓ Contacts saved to contacts.json";
   } catch (err) {
     console.error("Error saving contacts:", err.message);
+
   }
 }
 

@@ -3,17 +3,21 @@
 // V searchContacts
 // V deleteContact
 
-const {isValidEmail,isValidPhone,isEmailInList} = require("../utils/validation.js");
+const {
+  isValidEmail,
+  isValidPhone,
+  isEmailInList,
+} = require("../utils/validation.js");
 
-const {loadContacts,saveContacts} = require("../utils/fileUtils.js");
+const { loadContacts, saveContacts } = require("../utils/fileUtils.js");
 
 const fs = require("fs");
 const path = require("node:path");
 const { fileURLToPath } = require("node:url");
 
-const __filename = fileURLToPath(import.meta.url);
-console.log("file name :" + __filename);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// console.log("file name :" + __filename);
+// const __dirname = path.dirname(__filename);
 
 const CONTACTS_FILE = path.join(__dirname, "..", "contacts.json");
 console.log(CONTACTS_FILE);
@@ -22,14 +26,14 @@ const contacts = loadContacts(CONTACTS_FILE);
 
 function addContact(name, email, phone) {
   if (!isValidEmail(email)) {
-    console.log(email);
+    console.log("isValidEmail"+email);
     console.log(`✗ Email must contain @ symbol`);
-    return;
+    return `✗ Email must contain @ symbol`;
   }
 
   if (isEmailInList(contacts, email)) {
-    console.log(`✗ A contact with email "${email}" already exists.`);
-    return;
+    console.log(`✗ Email must be unique`);
+    return `✗ Email must be unique`;
   }
 
   // Validate phone (only numbers and dashes)
@@ -37,12 +41,13 @@ function addContact(name, email, phone) {
     console.log(
       `✗ Invalid phone number: "${phone}". Only digits and "-" allowed.`
     );
-    return;
+    return `✗ Invalid phone number: "${phone}". Only digits and "-" allowed.`;
   }
 
   contacts.push({ name, email, phone });
   console.log(`✓ Contact added: ${name}`);
   saveContacts(CONTACTS_FILE, contacts);
+  return "user added";
 }
 
 // List all contacts
@@ -94,5 +99,4 @@ function deleteContact(email) {
   saveContacts(CONTACTS_FILE, updated);
 }
 
-
-module.exports = {addContact, listContacts,searchContacts, deleteContact};
+module.exports = { addContact, listContacts, searchContacts, deleteContact };
