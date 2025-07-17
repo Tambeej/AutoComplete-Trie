@@ -27,6 +27,7 @@ const contacts = loadContacts(CONTACTS_FILE);
 function addContact(name, email, phone) {
   if (!isValidEmail(email)) {
     console.log("isValidEmail" + email);
+    console.log("isValidEmail" + email);
     console.log(`✗ Email must contain @ symbol`);
     return `✗ Email must contain @ symbol`;
   }
