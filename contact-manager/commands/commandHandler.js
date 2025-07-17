@@ -28,32 +28,22 @@ function handleCommand(command) {
           "✗ Error: Missing arguments for add command\nUsage: node contacts.js add <name> <email> <phone>"
         );
         return `✗ Error: Missing arguments for add command\nUsage: node contacts.js add <name> <email> <phone>`;
-        // break;
       }
       const [op, name, email, phone] = command;
       return addContact(name, email, phone);
-
-    // break;
-
     case "list":
       console.log(listContacts());
       return listContacts();
-
-    // break;
-
     case "search":
       if (command.length < 2) {
         console.log("Usage: search <query>");
         return `Usage: search <query>`;
       }
       return searchContacts(command.slice(1).join(" "));
-    // break;
-
     case "delete":
       if (command.length < 2) {
         console.log("Usage: delete <name>");
         return `Usage: delete <name>`;
-        // break;
       }
       deleteContact(command.slice(1).join(" "));
       return "user deleted";

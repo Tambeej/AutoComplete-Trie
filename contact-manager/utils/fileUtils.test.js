@@ -20,7 +20,6 @@ describe("Get load files functions", () => {
     const filePath = "not-a-json.txt";
     const result = loadContacts(filePath);
 
-
     expect(result).toEqual(`Its not a JSON`);
   });
 

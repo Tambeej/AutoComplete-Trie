@@ -48,7 +48,6 @@ function addContact(name, email, phone) {
   contacts.push({ name, email, phone });
   console.log(`✓ Contact added: ${name}`);
   saveContacts(CONTACTS_FILE, contacts);
-  // console.log("user added");
   return "user added";
 }
 
@@ -83,21 +82,13 @@ function searchContacts(query) {
 
   if (results.length === 0) {
     console.log(`No contacts found matching "${query}".`);
-    //     return [];
-    //   }
-
-    //   results.forEach((contact) => {
-    //     console.log(`${contact.name} - ${contact.email} - ${contact.phone}`);
-    //     return `${contact.name} - ${contact.email} - ${contact.phone}`;
-    //   });
-    // }
   } else {
     results.forEach((contact) => {
       console.log(`${contact.name} - ${contact.email} - ${contact.phone}`);
     });
   }
 
-  return results; // return the results
+  return results;
 }
 
 // Delete contact by name
