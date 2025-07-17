@@ -96,7 +96,7 @@ function searchContacts(query) {
     });
   }
 
-  return results; // ✅ return the results
+  return results; // return the results
 }
 
 // Delete contact by name

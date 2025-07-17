@@ -1,0 +1,91 @@
+[33mcommit 99aaf1a2e91c00471e4aa92eaa6e366ca9281965[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32m_front-end[m[33m, [m[1;31morigin/_front-end[m[33m)[m
+Author: Anna Glikin <glikin.anna@gmail.com>
+Date:   Mon Jul 14 19:42:30 2025 +0300
+
+    comments for Tamar
+
+[33mcommit ff0ed56f627e438ff53e5899d89dbf4a87875321[m[33m ([m[1;32mmain[m[33m)[m
+Author: Anna Glikin <glikin.anna@gmail.com>
+Date:   Mon Jul 14 19:31:08 2025 +0300
+
+    comment the function
+
+[33mcommit ca82c0feb32a98a20ed64ea585038e4490c2d284[m
+Author: Anna Glikin <glikin.anna@gmail.com>
+Date:   Mon Jul 14 19:12:52 2025 +0300
+
+    printHelp and handleCommand  functions
+
+[33mcommit 6e0500d949e3037619e1ddbdd09e611189e895aa[m
+Author: Anna Glikin <glikin.anna@gmail.com>
+Date:   Mon Jul 14 19:05:10 2025 +0300
+
+    cleaning code
+
+[33mcommit 16c6520a34963dc51ef62857fa691befaedd440c[m
+Author: Anna Glikin <glikin.anna@gmail.com>
+Date:   Mon Jul 14 18:33:45 2025 +0300
+
+    creating addContact, listContacts, searchContacts, deleteContact functions at contactService file
+
+[33mcommit bc6f19714276c8a99029f12ea58c8f42b4e0f625[m
+Author: Tambeej <bejella@gmail.com>
+Date:   Mon Jul 14 17:07:27 2025 +0300
+
+    functions we need
+
+[33mcommit fbb9e57ce562d9f08ae6b447373692b86daabe81[m
+Author: Anna Glikin <glikin.anna@gmail.com>
+Date:   Mon Jul 14 16:59:04 2025 +0300
+
+    push/pull requesthandling project start
+
+[33mcommit 8bdc46142497574d216efb2232761ba328a52988[m[33m ([m[1;32m_fromt-end[m[33m)[m
+Merge: 310c05d 661d9ac
+Author: AnnaGLK <83088452+AnnaGLK@users.noreply.github.com>
+Date:   Mon Jul 14 14:04:15 2025 +0300
+
+    Merge pull request #2 from AnnaGLK/_fromt-end
+    
+    secret message
+
+[33mcommit 310c05db6904af83fa876a07a8a02e47e4be89b0[m
+Merge: 09f46a7 2e497a5
+Author: AnnaGLK <83088452+AnnaGLK@users.noreply.github.com>
+Date:   Mon Jul 14 14:03:28 2025 +0300
+
+    Merge pull request #1 from AnnaGLK/_back-end
+    
+    initial server
+
+[33mcommit 2e497a5bd6667cebb0609d66ec4a43cfa45aad80[m[33m ([m[1;31morigin/_back-end[m[33m)[m
+Author: Tambeej <bejella@gmail.com>
+Date:   Mon Jul 14 13:57:58 2025 +0300
+
+    initial server
+
+[33mcommit 661d9ac3a4d46e9a664851272da67c89a7b55c3a[m[33m ([m[1;31morigin/_fromt-end[m[33m)[m
+Author: Anna Glikin <glikin.anna@gmail.com>
+Date:   Mon Jul 14 13:49:26 2025 +0300
+
+    secret message
+
+[33mcommit 09f46a7b8dc005fa00a356b9a42260bbdc353f8e[m
+Author: Anna Glikin <glikin.anna@gmail.com>
+Date:   Mon Jul 14 13:35:25 2025 +0300
+
+    start html
+
+[33mcommit 8ed4662954be34b162eb0ffe612ed798ab44586e[m
+Author: AnnaGLK <83088452+AnnaGLK@users.noreply.github.com>
+Date:   Mon Jul 14 13:31:34 2025 +0300
+
+    Create index.html
+    
+    we need to make some changes
+
+[33mcommit 7b5840e83ef6ea2bc866e5ffc1d68d36e033ad15[m
+Author: AnnaGLK <83088452+AnnaGLK@users.noreply.github.com>
+Date:   Mon Jul 14 13:27:49 2025 +0300
+
+    Initial commit
