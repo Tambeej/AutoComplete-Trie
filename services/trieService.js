@@ -1,14 +1,9 @@
-// const {
-//   isValidEmail,
-//   isValidPhone,
-//   isEmailInList,
-// } = require("../utils/validation.js");
-
+const { isValidWord, isUnique } = require("../utils/validation.js");
 
 class TrieNode {
   constructor(value = "") {
     this.value = value;
-    this.children = new Set(); 
+    this.children = new Set();
     this.endOfWord = false;
   }
 
@@ -28,6 +23,12 @@ class AutoCompleteTrie {
   }
 
   addWord(word) {
+    if (!isValidWord(word)) {
+      return `Word ${word} is not a valid word`;
+    }
+    if (!isUnique(word)) {
+      return `Word "${word}" already exists.`;
+    }
     let currentNode = this.root;
 
     for (const char of word) {
@@ -43,6 +44,9 @@ class AutoCompleteTrie {
   }
 
   findWord(word) {
+    if (!isValidWord(word)) {
+      return `Word ${word} is not a valid word`;
+    }
     let currentNode = this.root;
 
     for (const char of word) {
@@ -56,6 +60,9 @@ class AutoCompleteTrie {
   }
 
   predictWords(prefix) {
+    if (!isValidWord(prefix)) {
+      return `Prefix ${prefix} is not a valid prefix`;
+    }
     let currentNode = this._getRemainingTree(prefix, this);
     let allWords = [];
     this._allWordsHelper(prefix, currentNode, allWords);
