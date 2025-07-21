@@ -1,20 +1,14 @@
-// V addContact
-// V listContacts
-// V searchContacts
-// V deleteContact
+// const {
+//   isValidEmail,
+//   isValidPhone,
+//   isEmailInList,
+// } = require("../utils/validation.js");
 
-const {
-  isValidEmail,
-  isValidPhone,
-  isEmailInList,
-} = require("../utils/validation.js");
-
-const { loadContacts, saveContacts } = require("../utils/trieUtils.js");
 
 class TrieNode {
   constructor(value = "") {
     this.value = value;
-    this.children = new Set(); // Set of TrieNode objects
+    this.children = new Set(); 
     this.endOfWord = false;
   }
 
@@ -92,3 +86,5 @@ class AutoCompleteTrie {
   }
 }
 
+const trie = new AutoCompleteTrie();
+module.exports = trie;

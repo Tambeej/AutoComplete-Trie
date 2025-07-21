@@ -1,19 +1,14 @@
-const {
-  addContact,
-  listContacts,
-  searchContacts,
-  deleteContact,
-} = require("../contact-manager/services/trieService.js");
+const trie = require("../services/autoCompleteTrie.js");
 
 // Print command help
 function printHelp() {
   console.log(`
-Available Commands:
-  add <name> <email> <phone>      Add a new contact
-  list                            List all contacts
-  search <query>                  Search contacts by name, email, or phone
-  delete <name>                   Delete contact by name
-  help                            Show this help message
+Commands:
+  add <word>      - Add word to dictionary
+  find <word>     - Check if word exists
+  complete <prefix> - Get completions
+  help           - Show this message
+  exit           - Quit program
 `);
 }
 
@@ -23,35 +18,27 @@ function handleCommand(command) {
   console.log(command[0]);
   switch (command[0]) {
     case "add":
-      if (command.length < 3) {
-        console.log(
-          "✗ Error: Missing arguments for add command\nUsage: node contacts.js add <name> <email> <phone>"
-        );
-        return `✗ Error: Missing arguments for add command\nUsage: node contacts.js add <name> <email> <phone>`;
-      }
-      const [op, name, email, phone] = command;
-      return addContact(name, email, phone);
-    case "list":
-      console.log(listContacts());
-      return listContacts();
-    case "search":
       if (command.length < 2) {
-        console.log("Usage: search <query>");
-        return `Usage: search <query>`;
+        return `✗ Error: Missing arguments for add command\nUsage: node app.js add <word>`;
       }
-      return searchContacts(command.slice(1).join(" "));
-    case "delete":
-      if (command.length < 2) {
-        console.log("Usage: delete <name>");
-        return `Usage: delete <name>`;
-      }
-      deleteContact(command.slice(1).join(" "));
-      return "user deleted";
+      let [op, word] = command;
+      return trie.addWord(word);
 
+    case "find":
+      if (command.length < 2) {
+        return `✗ Error: Missing arguments for add command\nUsage: node app.js find <word>`;
+      }
+      [op, word] = command;
+      return trie.findWord(word);
+    case "complete":
+      if (command.length < 2) {
+        return `✗ Error: Missing arguments for add command\nUsage: node app.js complete <prefix>`;
+      }
+      [op, prefix] = command;
+      return trie.predictWords(prefix);
     case "help":
       printHelp();
       break;
-
     default:
       console.log(`Unknown command: "${command}"`);
       printHelp();
