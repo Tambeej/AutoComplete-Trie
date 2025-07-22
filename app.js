@@ -7,13 +7,11 @@ const rl = readline.createInterface({
   prompt: "> ",
 });
 
-// Welcome Message and Commands
 console.log("Welcome to the AutoComplete Dictionary!");
 printHelp();
 
 rl.prompt();
 
-// Input loop
 rl.on("line", (line) => {
   const input = line.trim();
   if (input === "exit") {
