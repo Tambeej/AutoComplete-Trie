@@ -7,7 +7,7 @@ const rl = readline.createInterface({
   prompt: "> ",
 });
 
-console.log("Welcome to the AutoComplete Dictionary!");
+console.log("=== AutoComplete Trie Console ===");
 printHelp();
 
 rl.prompt();

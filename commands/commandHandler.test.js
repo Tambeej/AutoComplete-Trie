@@ -4,7 +4,7 @@ const { readContacts, listContacts } = require("../services/trieService");
 describe("Get handel user input", () => {
   it("should return user data correctly", () => {
     const result = handleCommand(["add", "josh"]);
-    expect(result).toEqual(`✓ Word "josh" added successfully.`);
+    expect(result).toEqual(`✓ Added 'josh' to dictionary`);
   });
 
   it("should return message if there is more less 2 values", () => {
@@ -15,19 +15,19 @@ describe("Get handel user input", () => {
   });
   it("should return message that the word is not found", () => {
     const result = handleCommand(["find", "Tamar"]);
-    expect(result).toEqual(`✗ Word "Tamar" not found.`);
+    expect(result).toEqual(`✗ 'Tamar' not found in dictionary`);
   });
 
   it("should find the word Tamar", () => {
     handleCommand(["add", "Tamar"]);
     const result = handleCommand(["find", "Tamar"]);
-    expect(result).toEqual(`✓ Word "Tamar" found.`);
+    expect(result).toEqual(`✓ 'Tamar' exists in dictionary`);
   });
   it("should show completions for prefix 'tam'", () => {
     handleCommand(["add", "tamar"]);
     handleCommand(["add", "tamir"]);
     const result = handleCommand(["complete", "tam"]);
-    expect(result).toContain('✓ Completions for "tam"');
+    expect(result).toContain(`Suggestions for 'tam'`);
     expect(result).toContain("tamar");
     expect(result).toContain("tamir");
   });

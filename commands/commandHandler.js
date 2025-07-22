@@ -34,11 +34,11 @@ function handleCommand(command) {
       const wordToAdd = command[1];
       const added = trie.addWord(wordToAdd);
       if (added) {
-        console.log(`✓ Word "${wordToAdd}" added successfully.`);
-        return `✓ Word "${wordToAdd}" added successfully.`;
+        console.log(`✓ Added '${wordToAdd}' to dictionary`);
+        return `✓ Added '${wordToAdd}' to dictionary`;
       }
-      console.log(`✗ Word "${wordToAdd}" not added.`);
-      return `✗ Word "${wordToAdd}" not added.`;
+      console.log(`✗ Word "${wordToAdd}" not added`);
+      return `✗ Word "${wordToAdd}" not added`;
     case "find":
       if (command.length < 2) {
         console.log(
@@ -50,12 +50,12 @@ function handleCommand(command) {
       const found = trie.findWord(wordToFind);
       console.log(
         found
-          ? `✓ Word "${wordToFind}" found.`
-          : `✗ Word "${wordToFind}" not found.`
+          ? `✓ '${wordToFind}' exists in dictionary`
+          : `✗ '${wordToFind}' not found in dictionary`
       );
       return found
-        ? `✓ Word "${wordToFind}" found.`
-        : `✗ Word "${wordToFind}" not found.`;
+        ? `✓ '${wordToFind}' exists in dictionary`
+        : `✗ '${wordToFind}' not found in dictionary`;
 
     case "complete":
       if (command.length < 2) {
@@ -67,13 +67,11 @@ function handleCommand(command) {
       const prefix = command[1];
       const completions = trie.predictWords(prefix);
       if (completions.length === 0) {
-        console.log(`✗ No completions found for prefix "${prefix}".`);
-        return `✗ No completions found for prefix "${prefix}".`;
+        console.log(`✗ No completions found for prefix "${prefix}"`);
+        return `✗ No completions found for prefix "${prefix}"`;
       } else {
-        console.log(
-          `✓ Completions for "${prefix}":\n${completions.join(", ")}`
-        );
-        return `✓ Completions for "${prefix}":\n${completions.join(", ")}`;
+        console.log(`Suggestions for '${prefix}':${completions.join(", ")}`);
+        return `Suggestions for '${prefix}':${completions.join(", ")}`;
       }
       break;
 
