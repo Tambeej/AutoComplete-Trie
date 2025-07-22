@@ -2,45 +2,26 @@ const { handleCommand } = require("./commandHandler");
 const { readContacts, listContacts } = require("../services/contactService");
 
 describe("Get handel user input", () => {
-  // add tests
   it("should return user data correctly", () => {
-    const result = handleCommand([
-      "add",
-      "josh",
-      "josh@mail.co",
-      "123-456-0789",
-    ]);
-    expect(result).toEqual("user added");
-  });
-  it("should return message if the Email is not unique", () => {
-    const result = handleCommand([
-      "add",
-      "josh",
-      "josh@mail.co",
-      "123-456-0789",
-    ]);
-    expect(result).toEqual("✗ Email must be unique");
+    const result = handleCommand(["add", "josh"]);
+    expect(result).toEqual(`✓ Word "josh" added successfully`);
   });
 
-  it("should return message if there is less than 3 values", () => {
-    const result = handleCommand(["add", "josh"]);
+  it("should return message if there is more less 2 values", () => {
+    const result = handleCommand(["add"]);
     expect(result).toEqual(
-      "✗ Error: Missing arguments for add command\nUsage: node contacts.js add <name> <email> <phone>"
+      `✗ Error: Missing argument for add command\nUsage: add <word>`
     );
   });
 
-  // delete tests
-  it("should delete the contact by email", () => {
-    const result = handleCommand(["delete"]);
-    expect(result).toEqual("Usage: delete <name>");
+  it("should find the word Tamar", () => {
+    const addedWord = handleCommand(["add","tamar"]);
+    const result = handleCommand(["find","Tamar"])
+    expect(result).toEqual( `✓ Word "Tamar" found.`);
   });
-  it("should return message if the obj deleted and to check it", () => {
-    const result = handleCommand(["delete", "josh@mail.co"]);
-    const contactsAfter = readContacts();
-    expect(result).toEqual("user deleted");
-    expect(
-      contactsAfter.find((c) => c.email === "josh@mail.co")
-    ).toBeUndefined();
+  it("should return message that the word is not found", () => {
+    const result = handleCommand(["find","Tamar"])
+    expect(result).toEqual( `✓ Word "Tamar" found.`);
   });
 
   // search tests
