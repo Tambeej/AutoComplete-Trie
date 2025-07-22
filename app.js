@@ -19,7 +19,11 @@ rl.on("line", (line) => {
     return;
   }
 
-  handleCommand(input.split(" "));
+  try {
+    handleCommand(input.split(" "));
+  } catch (err) {
+    console.error("✗ Error:", err.message);
+  }
   rl.prompt();
 });
 
