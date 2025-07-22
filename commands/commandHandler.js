@@ -1,61 +1,82 @@
-const {
-  addContact,
-  listContacts,
-  searchContacts,
-  deleteContact,
-} = require("../contact-manager/services/trieService.js");
+const trie = require("../services/trieService.js");
 
 // Print command help
 function printHelp() {
   console.log(`
-Available Commands:
-  add <name> <email> <phone>      Add a new contact
-  list                            List all contacts
-  search <query>                  Search contacts by name, email, or phone
-  delete <name>                   Delete contact by name
-  help                            Show this help message
+Commands:
+  add <word>      - Add word to dictionary
+  find <word>     - Check if word exists
+  complete <prefix> - Get completions
+  help           - Show this message
+  exit           - Quit program
 `);
 }
 
-// Handle CLI-like command input
-
 function handleCommand(command) {
-  console.log(command[0]);
-  switch (command[0]) {
+  const operation = command[0];
+
+  switch (operation) {
     case "add":
-      if (command.length < 3) {
+      if (command.length < 2) {
         console.log(
-          "✗ Error: Missing arguments for add command\nUsage: node contacts.js add <name> <email> <phone>"
+          `✗ Error: Missing argument for add command\nUsage: add <word>`
         );
-        return `✗ Error: Missing arguments for add command\nUsage: node contacts.js add <name> <email> <phone>`;
+        return `✗ Error: Missing argument for add command\nUsage: add <word>`;
       }
-      const [op, name, email, phone] = command;
-      return addContact(name, email, phone);
-    case "list":
-      console.log(listContacts());
-      return listContacts();
-    case "search":
+      const wordToAdd = command[1];
+      console.log(`✓ Word "${wordToAdd}" added successfully.`);
+      return `✓ Word "${wordToAdd}" added successfully.`;
+    case "find":
       if (command.length < 2) {
-        console.log("Usage: search <query>");
-        return `Usage: search <query>`;
+        console.log(
+          `✗ Error: Missing argument for find command\nUsage: find <word>`
+        );
+        return `✗ Error: Missing argument for find command\nUsage: find <word>`;
       }
-      return searchContacts(command.slice(1).join(" "));
-    case "delete":
+      const wordToFind = command[1];
+      const found = trie.findWord(wordToFind);
+      console.log(
+        found
+          ? `✓ Word "${wordToFind}" found.`
+          : `✗ Word "${wordToFind}" not found.`
+      );
+      return found
+        ? `✓ Word "${wordToFind}" found.`
+        : `✗ Word "${wordToFind}" not found.`;
+
+    case "complete":
       if (command.length < 2) {
-        console.log("Usage: delete <name>");
-        return `Usage: delete <name>`;
+        console.log(
+          `✗ Error: Missing argument for complete command\nUsage: complete <prefix>`
+        );
+        return `✗ Error: Missing argument for complete command\nUsage: complete <prefix>`;
       }
-      deleteContact(command.slice(1).join(" "));
-      return "user deleted";
+      const prefix = command[1];
+      const completions = trie.predictWords(prefix);
+      if (completions.length === 0) {
+        console.log(`✗ No completions found for prefix "${prefix}".`);
+        return `✗ No completions found for prefix "${prefix}".`;
+      } else {
+        console.log(
+          `✓ Completions for "${prefix}":\n${completions.join(", ")}`
+        );
+        return `✓ Completions for "${prefix}":\n${completions.join(", ")}`;
+      }
+      break;
 
     case "help":
       printHelp();
       break;
 
-    default:
-      console.log(`Unknown command: "${command}"`);
-      printHelp();
+    case "exit":
+      if (command.length > 1) {
+        console.log(`✗ Error: Too many argument for exit command\nUsage: exit`);
+      }
       break;
+
+    default:
+      console.log(`✗ Unknown command: "${operation}"`);
+      printHelp();
   }
 }
 

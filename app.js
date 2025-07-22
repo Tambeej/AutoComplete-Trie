@@ -1,3 +1,31 @@
-const { handleCommand } = require("./commands/commandHandler.js");
+const readline = require("readline");
+const { printHelp, handleCommand } = require("./commands/commandHandler.js");
 
-handleCommand(process.argv.slice(2));
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+  prompt: "> ",
+});
+
+// Welcome Message and Commands
+console.log("Welcome to the AutoComplete Dictionary!");
+printHelp();
+
+rl.prompt();
+
+// Input loop
+rl.on("line", (line) => {
+  const input = line.trim();
+  if (input === "exit") {
+    rl.close();
+    return;
+  }
+
+  handleCommand(input.split(" "));
+  rl.prompt();
+});
+
+rl.on("close", () => {
+  console.log("Goodbye!");
+  process.exit(0);
+});

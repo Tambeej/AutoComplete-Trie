@@ -1,15 +1,10 @@
-// functions isValidEmail/isValidEmail
- function isValidEmail (email) {
-  return email.includes("@");
-};
+const trie = require("../services/trieService.js");
 
- function isEmailInList(contacts,email){
-    return contacts.some((contact) => contact.email === email);
+function isValidWord(word) {
+  return typeof word === "string" && /^[a-zA-Z]+$/.test(word);
 }
 
- function isValidPhone(phone) {
-  return /^\d{3}-\d{3}-\d{4}$/.test(phone);
+
+module.exports = {
+  isValidWord,
 };
-
-
-module.exports = {isValidEmail,isEmailInList,isValidPhone}

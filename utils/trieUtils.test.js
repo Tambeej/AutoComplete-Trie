@@ -1,4 +1,4 @@
-const { saveContacts, loadContacts } = require("./fileUtils");
+const { saveContacts, loadContacts } = require("./trieUtils");
 
 describe("Get load files functions", () => {
   it("should return a list of contacts correctly", () => {
