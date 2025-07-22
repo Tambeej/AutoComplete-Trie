@@ -26,11 +26,7 @@ class AutoCompleteTrie {
     if (!isValidWord(word)) {
       return `Word ${word} is not a valid word`;
     }
-    if (!isUnique(word)) {
-      return `Word "${word}" already exists.`;
-    }
     let currentNode = this.root;
-
     for (const char of word) {
       let childNode = currentNode.getChild(char);
       if (!childNode) {
@@ -39,7 +35,6 @@ class AutoCompleteTrie {
       }
       currentNode = childNode;
     }
-
     currentNode.endOfWord = true;
   }
 
@@ -69,16 +64,14 @@ class AutoCompleteTrie {
     return allWords;
   }
 
-  _getRemainingTree(prefix, node) {
+  _getRemainingTree(prefix) {
     let currentNode = this.root;
-    let lastNode;
+
     for (const char of prefix) {
-      lastNode = currentNode;
       currentNode = currentNode.getChild(char);
-      if (!currentNode) {
-        return lastNode;
-      }
+      if (!currentNode) return null;
     }
+
     return currentNode;
   }
 

@@ -24,10 +24,8 @@ function handleCommand(command) {
         return `✗ Error: Missing argument for add command\nUsage: add <word>`;
       }
       const wordToAdd = command[1];
-      trie.addWord(wordToAdd);
       console.log(`✓ Word "${wordToAdd}" added successfully.`);
       return `✓ Word "${wordToAdd}" added successfully.`;
-
     case "find":
       if (command.length < 2) {
         console.log(
@@ -68,6 +66,12 @@ function handleCommand(command) {
 
     case "help":
       printHelp();
+      break;
+
+    case "exit":
+      if (command.length > 1) {
+        console.log(`✗ Error: Too many argument for exit command\nUsage: exit`);
+      }
       break;
 
     default:
