@@ -36,6 +36,7 @@ class AutoCompleteTrie {
       currentNode = childNode;
     }
     currentNode.endOfWord = true;
+    return true;
   }
 
   findWord(word) {

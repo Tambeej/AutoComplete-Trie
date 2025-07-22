@@ -10,6 +10,14 @@ Commands:
   help           - Show this message
   exit           - Quit program
 `);
+  return `
+Commands:
+  add <word>      - Add word to dictionary
+  find <word>     - Check if word exists
+  complete <prefix> - Get completions
+  help           - Show this message
+  exit           - Quit program
+`;
 }
 
 function handleCommand(command) {
@@ -24,8 +32,13 @@ function handleCommand(command) {
         return `✗ Error: Missing argument for add command\nUsage: add <word>`;
       }
       const wordToAdd = command[1];
-      console.log(`✓ Word "${wordToAdd}" added successfully.`);
-      return `✓ Word "${wordToAdd}" added successfully.`;
+      const added = trie.addWord(wordToAdd);
+      if (added) {
+        console.log(`✓ Word "${wordToAdd}" added successfully.`);
+        return `✓ Word "${wordToAdd}" added successfully.`;
+      }
+      console.log(`✗ Word "${wordToAdd}" not added.`);
+      return `✗ Word "${wordToAdd}" not added.`;
     case "find":
       if (command.length < 2) {
         console.log(
@@ -65,18 +78,18 @@ function handleCommand(command) {
       break;
 
     case "help":
-      printHelp();
-      break;
-
+      return printHelp();
     case "exit":
       if (command.length > 1) {
         console.log(`✗ Error: Too many argument for exit command\nUsage: exit`);
+        return `Too many argument for exit command`;
       }
       break;
 
     default:
       console.log(`✗ Unknown command: "${operation}"`);
       printHelp();
+      return `Unknown command/`;
   }
 }
 
