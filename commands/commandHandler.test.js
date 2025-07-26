@@ -1,5 +1,5 @@
-const { handleCommand } = require("./commandHandler");
-const { readContacts, listContacts } = require("../services/trieService");
+import { handleCommand } from "./commandHandler.js";
+
 
 describe("Get handel user input", () => {
   it("should return user data correctly", () => {

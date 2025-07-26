@@ -1,7 +1,7 @@
-const trie = require("../services/trieService.js");
+import trie from "../services/trieService.js";
 
 // Print command help
-function printHelp() {
+export function printHelp() {
   console.log(`
 Commands:
   add <word>      - Add word to dictionary
@@ -20,7 +20,7 @@ Commands:
 `;
 }
 
-function handleCommand(command) {
+export function handleCommand(command) {
   const operation = command[0];
   try {
     switch (operation) {
@@ -97,7 +97,7 @@ function handleCommand(command) {
   }
 }
 
-module.exports = {
-  handleCommand,
-  printHelp,
-};
+// module.exports = {
+//   handleCommand,
+//   printHelp,
+// };

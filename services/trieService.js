@@ -1,4 +1,4 @@
-const { isValidWord, isUnique } = require("../utils/validation.js");
+import { isValidWord } from "../utils/validation.js";
 
 class TrieNode {
   constructor(value = "") {
@@ -24,7 +24,10 @@ class AutoCompleteTrie {
 
   addWord(word) {
     if (!isValidWord(word)) {
-      return `Word ${word} is not a valid word`;
+      return `Word "${word}" is not a valid word`;
+    }
+    if (this.findWord(word)) {
+      return `Word "${word}" is already in dictionary`;
     }
     let currentNode = this.root;
     for (const char of word) {
@@ -88,4 +91,6 @@ class AutoCompleteTrie {
 }
 
 const trie = new AutoCompleteTrie();
-module.exports = trie;
+// module.exports = trie;
+
+export default trie;

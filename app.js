@@ -1,5 +1,8 @@
-const readline = require("readline");
-const { printHelp, handleCommand } = require("./commands/commandHandler.js");
+// const readline = require("readline");
+// const { printHelp, handleCommand } = require("./commands/commandHandler.js");
+
+import  readline  from "readline";
+import { printHelp, handleCommand } from "./commands/commandHandler.js";
 
 const rl = readline.createInterface({
   input: process.stdin,

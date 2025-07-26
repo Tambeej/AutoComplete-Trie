@@ -1,10 +1,11 @@
-const trie = require("../services/trieService.js");
+import  trie  from "../services/trieService.js";
 
-function isValidWord(word) {
+
+export function isValidWord(word) {
   return typeof word === "string" && /^[a-zA-Z]+$/.test(word);
 }
 
 
-module.exports = {
-  isValidWord,
-};
+// module.exports = {
+//   isValidWord,
+// };
